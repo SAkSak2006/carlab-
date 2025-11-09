@@ -1,0 +1,113 @@
+// Prisma Schema for Ilialox CRM - 2-Day Prototype
+// Simplified version with 6 tables
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 1. Users - CRM access
+model User {
+  id                    String                 @id @default(uuid())
+  email                 String                 @unique
+  passwordHash          String                 @map("password_hash")
+  fullName              String                 @map("full_name")
+  role                  String                 @default("admin")
+  createdAt             DateTime               @default(now()) @map("created_at")
+  requestStatusChanges  RequestStatusHistory[]
+
+  @@map("users")
+}
+
+// 2. Clients - Auto-created from requests
+model Client {
+  id        String    @id @default(uuid())
+  firstName String    @map("first_name")
+  lastName  String?   @map("last_name")
+  phone     String
+  email     String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  vehicles  Vehicle[]
+  requests  ServiceRequest[]
+
+  @@map("clients")
+}
+
+// 3. Vehicles - Auto-created from requests
+model Vehicle {
+  id           String           @id @default(uuid())
+  clientId     String           @map("client_id")
+  brand        String
+  model        String
+  year         Int?
+  vin          String?
+  licensePlate String?          @map("license_plate")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  client       Client           @relation(fields: [clientId], references: [id])
+  requests     ServiceRequest[]
+
+  @@index([clientId])
+  @@map("vehicles")
+}
+
+// 4. Service Requests - Main entity
+model ServiceRequest {
+  id                   String                 @id @default(uuid())
+  requestNumber        String                 @unique @map("request_number")
+  trackingToken        String                 @unique @map("tracking_token")
+  clientId             String                 @map("client_id")
+  vehicleId            String                 @map("vehicle_id")
+  description          String
+  status               String                 @default("new")
+  assignedMaster       String?                @map("assigned_master")
+  progressPercentage   Int                    @default(0) @map("progress_percentage")
+  totalAmount          Decimal                @default(0) @map("total_amount") @db.Decimal(10, 2)
+  paymentStatus        String                 @default("unpaid") @map("payment_status")
+  estimatedCompletion  DateTime?              @map("estimated_completion")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @default(now()) @updatedAt @map("updated_at")
+  client               Client                 @relation(fields: [clientId], references: [id])
+  vehicle              Vehicle                @relation(fields: [vehicleId], references: [id])
+  works                RequestWork[]
+  statusHistory        RequestStatusHistory[]
+
+  @@index([status])
+  @@index([requestNumber])
+  @@index([trackingToken])
+  @@index([clientId])
+  @@map("service_requests")
+}
+
+// 5. Request Works - Services added to request
+model RequestWork {
+  id        String         @id @default(uuid())
+  requestId String         @map("request_id")
+  workName  String         @map("work_name")
+  quantity  Decimal        @default(1) @db.Decimal(10, 2)
+  unitPrice Decimal        @map("unit_price") @db.Decimal(10, 2)
+  totalPrice Decimal       @map("total_price") @db.Decimal(10, 2)
+  createdAt DateTime       @default(now()) @map("created_at")
+  request   ServiceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@index([requestId])
+  @@map("request_works")
+}
+
+// 6. Request Status History - For tracking
+model RequestStatusHistory {
+  id        String         @id @default(uuid())
+  requestId String         @map("request_id")
+  oldStatus String?        @map("old_status")
+  newStatus String         @map("new_status")
+  changedBy String?        @map("changed_by")
+  createdAt DateTime       @default(now()) @map("created_at")
+  request   ServiceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  user      User?          @relation(fields: [changedBy], references: [id])
+
+  @@index([requestId])
+  @@map("request_status_history")
+}
