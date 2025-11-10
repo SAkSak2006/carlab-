@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CRMLayout } from '../components/crm/CRMLayout';
 import { Input } from '../components/shared/Input';
 import { LoadingSpinner } from '../components/shared/LoadingSpinner';
+import { useToast, ToastContainer } from '../components/shared/Toast';
 import ShinyText from '../components/ShinyText';
 
 // Mock data for demonstration
@@ -74,6 +75,7 @@ export const MastersList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const { toasts, removeToast, success } = useToast();
 
   const filteredMasters = masters.filter((master) => {
     const matchesSearch =
@@ -96,6 +98,7 @@ export const MastersList: React.FC = () => {
 
   return (
     <CRMLayout>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
