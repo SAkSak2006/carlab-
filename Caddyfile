@@ -4,23 +4,23 @@
 		reverse_proxy localhost:5000
 	}
 
-	# Health check for Caddy
+	# Health check
 	handle /health {
-		respond "OK" 200
+		respond "Caddy OK" 200
 	}
 
 	# CRM application - strip /crm prefix
 	handle_path /crm* {
 		root * /app/crm/dist
+		file_server browse
 		try_files {path} /index.html
-		file_server
 	}
 
-	# Public site (default)
+	# Public site (default) - serve static files
 	handle {
 		root * /app/public-site/dist
+		file_server browse
 		try_files {path} /index.html
-		file_server
 	}
 
 	# Security headers

@@ -1,0 +1,24 @@
+:{$PORT:8080} {
+	# Backend API routes
+	handle /api/* {
+		reverse_proxy localhost:5000
+	}
+
+	# Health check
+	handle /health {
+		respond "Caddy OK" 200
+	}
+
+	# Serve static files from public-site as default
+	handle {
+		root * /app/public-site/dist
+		file_server browse
+		try_files {path} /index.html
+	}
+
+	log {
+		output stdout
+		format console
+		level DEBUG
+	}
+}
