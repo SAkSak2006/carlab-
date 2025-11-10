@@ -19,13 +19,21 @@ export const Login: React.FC = () => {
     setError('');
     setIsLoading(true);
 
+    console.log('[Login] Starting login process...');
+
     try {
       await login(email, password);
+      console.log('[Login] Login successful, navigating to dashboard...');
       navigate('dashboard');
+      console.log('[Login] Navigation called');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Ошибка входа. Проверьте данные.');
+      console.error('[Login] Login error:', err);
+      const errorMessage = err.response?.data?.error || err.message || 'Ошибка входа. Проверьте данные.';
+      console.error('[Login] Error message:', errorMessage);
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
+      console.log('[Login] Login process finished');
     }
   };
 
