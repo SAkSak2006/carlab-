@@ -15,7 +15,7 @@ export const CRMLayout: React.FC<CRMLayoutProps> = ({ children }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('login');
+    navigate('/login');
   };
 
   const navItems = [
