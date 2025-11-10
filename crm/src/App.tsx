@@ -40,7 +40,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     console.log('[ProtectedRoute] Not authenticated, redirecting to login');
   }
 
-  return isAuthenticatedFinal ? <>{children}</> : <Navigate to="login" replace />;
+  return isAuthenticatedFinal ? <>{children}</> : <Navigate to="/login" replace />;
 }
 
 function AppRoutes() {
@@ -57,7 +57,7 @@ function AppRoutes() {
       <Route path="/masters" element={<ProtectedRoute><MastersList /></ProtectedRoute>} />
       <Route path="/parts" element={<ProtectedRoute><SpareParts /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-      <Route path="*" element={<Navigate to="login" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
