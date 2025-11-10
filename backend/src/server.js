@@ -12,7 +12,8 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+// Backend always runs on port 5000, Caddy listens on $PORT (8080) and proxies to backend
+const PORT = 5000;
 
 // Middleware
 // In production, allow same-origin requests (Caddy proxies everything)

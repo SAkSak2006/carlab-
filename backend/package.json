@@ -1,7 +1,7 @@
 {
-  "name": "ilialox-crm-backend",
+  "name": "carlab-crm-backend",
   "version": "1.0.0",
-  "description": "Ilialox Auto Service CRM - Backend API",
+  "description": "Car Lab Auto Service CRM - Backend API",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

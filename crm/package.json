@@ -1,8 +1,8 @@
 {
-  "name": "ilialox-crm",
+  "name": "carlab-crm",
   "version": "1.0.0",
   "private": true,
-  "description": "Ilialox Auto Service - CRM System",
+  "description": "Car Lab Auto Service - CRM System",
   "scripts": {
     "dev": "vite --port 5173",
     "build": "vite build",

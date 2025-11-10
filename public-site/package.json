@@ -1,8 +1,8 @@
 {
-    "name":  "ilialox-public-site",
+    "name":  "carlab-public-site",
     "version":  "1.0.0",
     "private":  true,
-    "description":  "Ilialox Auto Service - Public Landing Page",
+    "description":  "Car Lab Auto Service - Public Landing Page",
     "scripts":  {
                     "dev":  "vite --port 3000",
                     "build":  "vite build",
