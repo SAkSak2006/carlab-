@@ -141,7 +141,7 @@ export default function Landing() {
         <div className="max-w-[1440px] mx-auto px-20 h-20 flex items-center justify-between">
           {/* Logo */}
           <div className="border-2 border-white rounded-lg px-3 py-2">
-            <div className="text-2xl font-bold">ILIALOX</div>
+            <div className="text-2xl font-bold">CAR LAB</div>
           </div>
 
           {/* Navigation */}
@@ -448,7 +448,7 @@ export default function Landing() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex justify-between items-start mb-8">
             <div className="border-2 border-white rounded-lg px-3 py-2">
-              <div className="text-2xl font-bold">ILIALOX</div>
+              <div className="text-2xl font-bold">CAR LAB</div>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -471,7 +471,7 @@ export default function Landing() {
           </div>
 
           <div className="text-center text-xs text-[#A0A5B8] pt-8 border-t border-[#2A2F3E]">
-            © 2024 Автосервис ILIALOX. Все права защищены.
+            © 2024 Автосервис CAR LAB. Все права защищены.
           </div>
         </div>
       </footer>

@@ -1,4 +1,4 @@
-// Prisma Schema for Ilialox CRM - 2-Day Prototype
+// Prisma Schema for Car Lab CRM - 2-Day Prototype
 // Simplified version with 6 tables
 
 generator client {
