@@ -24,7 +24,7 @@ export const Login: React.FC = () => {
     try {
       await login(email, password);
       console.log('[Login] Login successful, navigating to dashboard...');
-      navigate('dashboard');
+      navigate('/dashboard');
       console.log('[Login] Navigation called');
     } catch (err: any) {
       console.error('[Login] Login error:', err);
