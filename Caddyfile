@@ -14,8 +14,8 @@
 		respond "Caddy is OK" 200
 	}
 
-	# CRM application
-	handle /crm/* {
+	# CRM application - must be before public site handler
+	handle /crm* {
 		uri strip_prefix /crm
 		root * /app/crm/dist
 		try_files {path} /index.html
@@ -23,7 +23,7 @@
 	}
 
 	# Public site (default)
-	handle /* {
+	handle {
 		root * /app/public-site/dist
 		try_files {path} /index.html
 		file_server
