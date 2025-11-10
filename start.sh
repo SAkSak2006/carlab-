@@ -50,10 +50,18 @@ echo ""
 echo "Verifying build artifacts..."
 if [ ! -d "/app/public-site/dist" ]; then
   echo "ERROR: /app/public-site/dist not found!"
+else
+  echo "✓ /app/public-site/dist exists"
+  echo "Contents:"
+  ls -la /app/public-site/dist/
 fi
 
 if [ ! -d "/app/crm/dist" ]; then
   echo "ERROR: /app/crm/dist not found!"
+else
+  echo "✓ /app/crm/dist exists"
+  echo "Contents:"
+  ls -la /app/crm/dist/
 fi
 
 # Start Caddy
