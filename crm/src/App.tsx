@@ -23,7 +23,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+  return isAuthenticated ? <>{children}</> : <Navigate to="login" replace />;
 }
 
 function AppRoutes() {
@@ -40,7 +40,7 @@ function AppRoutes() {
       <Route path="/masters" element={<ProtectedRoute><MastersList /></ProtectedRoute>} />
       <Route path="/parts" element={<ProtectedRoute><SpareParts /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="login" replace />} />
     </Routes>
   );
 }

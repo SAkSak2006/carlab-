@@ -21,7 +21,7 @@ export const Login: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate('dashboard');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Ошибка входа. Проверьте данные.');
     } finally {
