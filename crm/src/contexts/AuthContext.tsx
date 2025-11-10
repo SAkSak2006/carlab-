@@ -45,7 +45,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     try {
+      console.log('[AuthContext] Starting login...');
       const response = await authApi.login(email, password);
+      console.log('[AuthContext] Login response received:', { hasToken: !!response.token, hasUser: !!response.user });
+
+      if (!response.token || !response.user) {
+        throw new Error('Invalid response from server: missing token or user');
+      }
 
       setToken(response.token);
       setUser(response.user);
@@ -53,8 +59,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Persist to localStorage
       localStorage.setItem('auth_token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
-    } catch (error) {
-      console.error('Login failed:', error);
+
+      console.log('[AuthContext] Login successful, user saved to localStorage');
+    } catch (error: any) {
+      console.error('[AuthContext] Login failed:', error);
+      console.error('[AuthContext] Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       throw error;
     }
   };
