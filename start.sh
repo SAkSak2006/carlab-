@@ -24,6 +24,38 @@ else
   echo "Warning: Backend health check failed, but continuing..."
 fi
 
+# Debug: Show current directory and structure
+echo "=== DEBUG: Environment Info ==="
+echo "Current directory: $(pwd)"
+echo "User: $(whoami)"
+echo ""
+
+echo "=== DEBUG: /app contents ==="
+ls -la /app/ 2>&1 || echo "Cannot list /app/"
+echo ""
+
+echo "=== DEBUG: Checking for dist directories ==="
+find /app -name "dist" -type d 2>/dev/null || echo "No dist directories found"
+echo ""
+
+echo "=== DEBUG: public-site structure ==="
+ls -la /app/public-site/ 2>&1 || echo "public-site not found"
+echo ""
+
+echo "=== DEBUG: crm structure ==="
+ls -la /app/crm/ 2>&1 || echo "crm not found"
+echo ""
+
+# Verify build artifacts exist
+echo "Verifying build artifacts..."
+if [ ! -d "/app/public-site/dist" ]; then
+  echo "ERROR: /app/public-site/dist not found!"
+fi
+
+if [ ! -d "/app/crm/dist" ]; then
+  echo "ERROR: /app/crm/dist not found!"
+fi
+
 # Start Caddy
 echo "Starting Caddy web server..."
 exec caddy run --config /app/Caddyfile --adapter caddyfile 2>&1

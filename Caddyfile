@@ -4,10 +4,15 @@
 		reverse_proxy localhost:5000
 	}
 
-	# CRM application
-	handle /crm* {
+	# Health check for Caddy
+	handle /health {
+		respond "OK" 200
+	}
+
+	# CRM application - strip /crm prefix
+	handle_path /crm* {
 		root * /app/crm/dist
-		try_files {path} /crm/index.html
+		try_files {path} /index.html
 		file_server
 	}
 
@@ -25,10 +30,10 @@
 		Referrer-Policy "no-referrer-when-downgrade"
 	}
 
-	# Logging
+	# Detailed logging
 	log {
 		output stdout
 		format console
-		level INFO
+		level DEBUG
 	}
 }
