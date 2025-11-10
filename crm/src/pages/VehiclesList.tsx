@@ -175,7 +175,7 @@ export const VehiclesList: React.FC = () => {
               {filteredVehicles.map((vehicle) => (
                 <Link
                   key={vehicle.id}
-                  to={`/vehicles/${vehicle.id}`}
+                  to={`vehicles/${vehicle.id}`}
                   className="block border border-[#2A2A2A] rounded-lg p-6 hover:border-[#A8B2C1] hover:shadow-[0px_4px_16px_rgba(168,178,193,0.2)] transition-all bg-[#0A0A0A]"
                 >
                   <div className="flex items-start justify-between">
