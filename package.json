@@ -58,9 +58,8 @@
       },
       "scripts": {
             "dev": "vite",
-            "build": "npm run build:backend && npm run migrate && npm run build:public && npm run build:crm",
+            "build": "npm run build:backend && npm run build:public && npm run build:crm",
             "build:backend": "cd backend && npm install --omit=dev",
-            "migrate": "cd backend && npx prisma generate && npx prisma migrate deploy",
             "build:public": "cd public-site && npm install && npm run build",
             "build:crm": "cd crm && npm install && npm run build",
             "start": "sh start.sh"

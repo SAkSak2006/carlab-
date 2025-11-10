@@ -3,6 +3,13 @@ set -e
 
 echo "Starting Ilialox services..."
 
+# Run Prisma migrations
+echo "Running Prisma migrations..."
+cd /app/backend
+npx prisma generate
+npx prisma migrate deploy
+echo "Migrations completed!"
+
 # Start backend in background
 echo "Starting backend API..."
 cd /app/backend && npm start &
