@@ -15,9 +15,9 @@
 	}
 
 	# CRM application - must be before public site handler
-	handle /crm* {
+	handle_path /crm* {
 		root * /app/crm/dist
-		try_files {path} /crm/index.html
+		try_files {path} /index.html
 		file_server
 	}
 

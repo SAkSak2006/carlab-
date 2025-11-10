@@ -47,7 +47,7 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <Router basename="/crm">
+    <Router>
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>
