@@ -221,7 +221,7 @@ export const VehiclesList: React.FC = () => {
                         <div>
                           <p className="text-sm text-[#8B95A5]">Владелец</p>
                           <Link
-                            to={`/clients/${vehicle.ownerId}`}
+                            to={`clients/${vehicle.ownerId}`}
                             className="font-medium text-[#A8B2C1] hover:text-[#E5E9ED] transition-colors"
                             onClick={(e) => e.stopPropagation()}
                           >

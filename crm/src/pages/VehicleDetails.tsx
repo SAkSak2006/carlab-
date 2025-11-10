@@ -184,7 +184,7 @@ export const VehicleDetails: React.FC = () => {
               </div>
             </div>
             <Link
-              to={`/clients/${vehicle.owner.id}`}
+              to={`../clients/${vehicle.owner.id}`}
               className="text-[#A8B2C1] hover:text-[#E5E9ED] font-medium"
             >
               Профиль клиента →
@@ -319,7 +319,7 @@ export const VehicleDetails: React.FC = () => {
                           {record.amount.toLocaleString('ru-RU')} ₽
                         </p>
                         <Link
-                          to={`/requests/${record.id}`}
+                          to={`../requests/${record.id}`}
                           className="text-sm text-[#A8B2C1] hover:text-[#E5E9ED] mt-2 inline-block"
                         >
                           Подробнее →
