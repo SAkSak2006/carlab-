@@ -184,7 +184,7 @@ export const Dashboard: React.FC = () => {
             </table>
           </div>
           <div className="p-4 border-t border-[#2A2A2A]">
-            <Link to="/crm/requests" className="text-[#A8B2C1] hover:text-[#E5E9ED] text-sm font-medium transition-colors">
+            <Link to="requests" className="text-[#A8B2C1] hover:text-[#E5E9ED] text-sm font-medium transition-colors">
               Посмотреть все заявки →
             </Link>
           </div>
