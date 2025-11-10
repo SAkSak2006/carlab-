@@ -1,0 +1,34 @@
+:{$PORT:8080} {
+	# Backend API routes
+	handle /api/* {
+		reverse_proxy localhost:5000
+	}
+
+	# CRM application
+	handle /crm* {
+		root * /app/crm/dist
+		try_files {path} /crm/index.html
+		file_server
+	}
+
+	# Public site (default)
+	handle {
+		root * /app/public-site/dist
+		try_files {path} /index.html
+		file_server
+	}
+
+	# Security headers
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer-when-downgrade"
+	}
+
+	# Logging
+	log {
+		output stdout
+		format console
+		level INFO
+	}
+}
