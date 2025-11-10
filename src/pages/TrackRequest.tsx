@@ -66,7 +66,7 @@ export const TrackRequest: React.FC = () => {
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <Link to="/" className="text-2xl font-bold text-blue-600">
-            Ilialox Auto Service
+            Car Lab Auto Service
           </Link>
           <Link to="/login" className="text-blue-600 hover:underline text-sm">
             Вход для сотрудников

@@ -1,4 +1,4 @@
-// TypeScript types for Ilialox CRM
+// TypeScript types for Car Lab CRM
 
 export interface User {
   id: string;
