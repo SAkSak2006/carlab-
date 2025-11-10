@@ -15,7 +15,10 @@ import { Settings } from './pages/Settings';
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
 
+  console.log('[ProtectedRoute] Checking auth...', { isLoading, isAuthenticated });
+
   if (isLoading) {
+    console.log('[ProtectedRoute] Still loading...');
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -23,7 +26,21 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return isAuthenticated ? <>{children}</> : <Navigate to="login" replace />;
+  // Fallback: check localStorage directly in case state hasn't updated yet
+  const hasTokenInStorage = !!localStorage.getItem('auth_token');
+  const isAuthenticatedFinal = isAuthenticated || hasTokenInStorage;
+
+  console.log('[ProtectedRoute] Auth result:', {
+    isAuthenticated,
+    hasTokenInStorage,
+    isAuthenticatedFinal
+  });
+
+  if (!isAuthenticatedFinal) {
+    console.log('[ProtectedRoute] Not authenticated, redirecting to login');
+  }
+
+  return isAuthenticatedFinal ? <>{children}</> : <Navigate to="login" replace />;
 }
 
 function AppRoutes() {
