@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
 import { authApi } from '../services/api';
 import type { User } from '../types';
 
@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string) => {
     try {
       console.log('[AuthContext] Starting login...');
       const response = await authApi.login(email, password);
@@ -70,23 +70,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
       throw error;
     }
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setToken(null);
     setUser(null);
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user');
-  };
+  }, []);
 
-  const value: AuthContextType = {
+  const value: AuthContextType = useMemo(() => ({
     user,
     token,
     login,
     logout,
     isAuthenticated: !!token && !!user,
     isLoading,
-  };
+  }), [user, token, login, logout, isLoading]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

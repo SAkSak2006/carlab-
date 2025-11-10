@@ -281,7 +281,7 @@ export const ClientDetails: React.FC = () => {
                         <p className="text-sm text-[#8B95A5]">VIN: {vehicle.vin}</p>
                       </div>
                       <Link
-                        to={`/vehicles/${vehicle.id}`}
+                        to={`../vehicles/${vehicle.id}`}
                         className="text-[#A8B2C1] hover:text-[#E5E9ED] font-medium"
                       >
                         Подробнее →

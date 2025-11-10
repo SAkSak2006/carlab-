@@ -163,7 +163,7 @@ export const Dashboard: React.FC = () => {
                 {recentRequests.map((request) => (
                   <tr key={request.id} className="hover:bg-[#0A0A0A] transition-colors">
                     <td className="px-6 py-4">
-                      <Link to={`/crm/requests/${request.id}`} className="text-[#A8B2C1] hover:text-[#E5E9ED] font-medium transition-colors">
+                      <Link to={`requests/${request.id}`} className="text-[#A8B2C1] hover:text-[#E5E9ED] font-medium transition-colors">
                         #{request.requestNumber}
                       </Link>
                     </td>
