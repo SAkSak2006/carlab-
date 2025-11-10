@@ -150,7 +150,7 @@ export const RequestDetails: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <Link to="/requests" className="text-[#A8B2C1] hover:underline text-sm mb-2 inline-block">
+            <Link to="/crm/requests" className="text-[#A8B2C1] hover:underline text-sm mb-2 inline-block">
               ← Назад к списку
             </Link>
             <h1 className="text-3xl font-bold">
