@@ -84,7 +84,7 @@ export const Login: React.FC = () => {
 
           {/* Link to public site */}
           <div className="mt-6 text-center">
-            <a href="http://localhost:3000" className="text-sm text-[#A8B2C1] hover:text-[#E5E9ED] transition-colors">
+            <a href="/" className="text-sm text-[#A8B2C1] hover:text-[#E5E9ED] transition-colors">
               ← Вернуться на главную
             </a>
           </div>
