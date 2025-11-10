@@ -10,6 +10,11 @@ npx prisma generate
 npx prisma migrate deploy
 echo "Migrations completed!"
 
+# Run database seed to create admin user
+echo "Running database seed..."
+npm run seed || echo "Seed already completed or failed (this is OK if admin exists)"
+echo "Seed completed!"
+
 # Start backend in background
 echo "Starting backend API..."
 cd /app/backend && npm start &

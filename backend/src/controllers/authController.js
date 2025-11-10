@@ -10,10 +10,12 @@ const authController = {
       // Validate request
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.error('Login validation failed:', errors.array());
         return res.status(400).json({ errors: errors.array() });
       }
 
       const { email, password } = req.body;
+      console.log(`Login attempt for email: ${email}`);
 
       // Find user
       const user = await prisma.user.findUnique({
@@ -21,6 +23,7 @@ const authController = {
       });
 
       if (!user) {
+        console.warn(`Login failed: User not found for email ${email}`);
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
@@ -28,8 +31,11 @@ const authController = {
       const isValidPassword = await bcrypt.compare(password, user.passwordHash);
 
       if (!isValidPassword) {
+        console.warn(`Login failed: Invalid password for email ${email}`);
         return res.status(401).json({ error: 'Invalid credentials' });
       }
+
+      console.log(`Login successful for user: ${email}`);
 
       // Generate JWT token
       const token = jwt.sign(
@@ -54,6 +60,7 @@ const authController = {
       });
 
     } catch (error) {
+      console.error('Login error:', error);
       next(error);
     }
   }
