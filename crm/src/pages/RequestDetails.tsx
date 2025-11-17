@@ -7,6 +7,7 @@ import { Select } from '../components/shared/Select';
 import { Input } from '../components/shared/Input';
 import { PrimaryButton } from '../components/PrimaryButton';
 import { requestsApi } from '../services/api';
+import { useToast, ToastContainer } from '../components/shared/Toast';
 import { MASTERS, COMMON_SERVICES, STATUS_LABELS, PAYMENT_STATUS_LABELS } from '../utils/constants';
 import type { ServiceRequest, RequestWork } from '../types';
 import { format } from 'date-fns';
@@ -29,6 +30,7 @@ export const RequestDetails: React.FC = () => {
   const [quantity, setQuantity] = useState('1');
   const [unitPrice, setUnitPrice] = useState('');
   const [isAddingWork, setIsAddingWork] = useState(false);
+  const { toasts, removeToast, success, error: showError } = useToast();
 
   useEffect(() => {
     if (id) loadRequest();
@@ -55,9 +57,9 @@ export const RequestDetails: React.FC = () => {
     try {
       await requestsApi.updateStatus(id!, newStatus);
       await loadRequest();
-      alert('Статус обновлен');
+      success('Статус обновлен');
     } catch (err) {
-      alert('Ошибка обновления статуса');
+      showError('Ошибка обновления статуса');
     }
   };
 
@@ -65,9 +67,9 @@ export const RequestDetails: React.FC = () => {
     try {
       await requestsApi.assignMaster(id!, selectedMaster);
       await loadRequest();
-      alert('Мастер назначен');
+      success('Мастер назначен');
     } catch (err) {
-      alert('Ошибка назначения мастера');
+      showError('Ошибка назначения мастера');
     }
   };
 
@@ -75,9 +77,9 @@ export const RequestDetails: React.FC = () => {
     try {
       await requestsApi.updateProgress(id!, progress);
       await loadRequest();
-      alert('Прогресс обновлен');
+      success('Прогресс обновлен');
     } catch (err) {
-      alert('Ошибка обновления прогресса');
+      showError('Ошибка обновления прогресса');
     }
   };
 
@@ -85,9 +87,9 @@ export const RequestDetails: React.FC = () => {
     try {
       await requestsApi.updatePayment(id!, paymentStatus);
       await loadRequest();
-      alert('Статус оплаты обновлен');
+      success('Статус оплаты обновлен');
     } catch (err) {
-      alert('Ошибка обновления статуса оплаты');
+      showError('Ошибка обновления статуса оплаты');
     }
   };
 
@@ -104,9 +106,9 @@ export const RequestDetails: React.FC = () => {
       setQuantity('1');
       setUnitPrice('');
       await loadRequest();
-      alert('Работа добавлена');
+      success('Работа добавлена');
     } catch (err) {
-      alert('Ошибка добавления работы');
+      showError('Ошибка добавления работы');
     } finally {
       setIsAddingWork(false);
     }
@@ -117,9 +119,9 @@ export const RequestDetails: React.FC = () => {
     try {
       await requestsApi.deleteWork(id!, workId);
       await loadRequest();
-      alert('Работа удалена');
+      success('Работа удалена');
     } catch (err) {
-      alert('Ошибка удаления работы');
+      showError('Ошибка удаления работы');
     }
   };
 
@@ -131,6 +133,7 @@ export const RequestDetails: React.FC = () => {
   if (isLoading) {
     return (
       <CRMLayout>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
         <LoadingSpinner size="lg" className="mt-20" />
       </CRMLayout>
     );
@@ -139,6 +142,7 @@ export const RequestDetails: React.FC = () => {
   if (error || !request) {
     return (
       <CRMLayout>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
         <div className="text-center mt-20 text-red-400">{error || 'Заявка не найдена'}</div>
       </CRMLayout>
     );
@@ -146,11 +150,12 @@ export const RequestDetails: React.FC = () => {
 
   return (
     <CRMLayout>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <Link to="/crm/requests" className="text-[#A8B2C1] hover:underline text-sm mb-2 inline-block">
+            <Link to="/requests" className="text-[#A8B2C1] hover:underline text-sm mb-2 inline-block">
               ← Назад к списку
             </Link>
             <h1 className="text-3xl font-bold">

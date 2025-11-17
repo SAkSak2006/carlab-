@@ -34,7 +34,7 @@ export const Login: React.FC = () => {
         <div className="bg-white rounded-lg shadow-lg p-8">
           {/* Logo/Title */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-blue-600 mb-2">Ilialox CRM</h1>
+            <h1 className="text-3xl font-bold text-blue-600 mb-2">Car Lab CRM</h1>
             <p className="text-gray-600">Войдите в систему</p>
           </div>
 
@@ -50,7 +50,7 @@ export const Login: React.FC = () => {
             <Input
               type="email"
               label="Email"
-              placeholder="admin@ilialox.com"
+              placeholder="admin@carlab.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -75,7 +75,7 @@ export const Login: React.FC = () => {
           {/* Demo credentials hint */}
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-800 font-medium mb-1">Демо доступ:</p>
-            <p className="text-xs text-blue-600">Email: admin@ilialox.com</p>
+            <p className="text-xs text-blue-600">Email: admin@carlab.com</p>
             <p className="text-xs text-blue-600">Пароль: admin123</p>
           </div>
 

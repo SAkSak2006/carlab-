@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CRMLayout } from '../components/crm/CRMLayout';
 import { Input } from '../components/shared/Input';
+import { Modal } from '../components/shared/Modal';
+import { useToast, ToastContainer } from '../components/shared/Toast';
 import ShinyText from '../components/ShinyText';
 
 type TabType = 'company' | 'users' | 'roles' | 'templates';
@@ -41,6 +43,53 @@ const mockTemplates = [
 export const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('company');
   const [companySettings, setCompanySettings] = useState(mockCompanySettings);
+  const { toasts, removeToast, success, error: showError } = useToast();
+
+  // Modal states
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [showRoleModal, setShowRoleModal] = useState(false);
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
+
+  // Handlers
+  const handleSaveCompanySettings = () => {
+    // TODO: API call to save settings
+    success('Настройки компании успешно сохранены');
+  };
+
+  const handleAddUser = () => {
+    setShowUserModal(true);
+  };
+
+  const handleEditUser = (userId: number) => {
+    success(`Редактирование пользователя #${userId} (функция в разработке)`);
+  };
+
+  const handleDeleteUser = (userId: number) => {
+    if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {
+      // TODO: API call to delete user
+      success('Пользователь удален');
+    }
+  };
+
+  const handleAddRole = () => {
+    setShowRoleModal(true);
+  };
+
+  const handleEditRole = (roleId: number) => {
+    success(`Редактирование роли #${roleId} (функция в разработке)`);
+  };
+
+  const handleAddTemplate = () => {
+    setShowTemplateModal(true);
+  };
+
+  const handleEditTemplate = (templateId: number) => {
+    success(`Редактирование шаблона #${templateId} (функция в разработке)`);
+  };
+
+  const handleViewTemplate = (templateId: number) => {
+    success(`Просмотр шаблона #${templateId} (функция в разработке)`);
+  };
 
   const tabs = [
     { id: 'company' as TabType, label: 'Компания', icon: '🏢' },
@@ -51,6 +100,7 @@ export const Settings: React.FC = () => {
 
   return (
     <CRMLayout>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
       <div className="space-y-6">
         {/* Header */}
         <div>
@@ -141,7 +191,10 @@ export const Settings: React.FC = () => {
                     />
                   </div>
                   <div className="flex justify-end mt-6">
-                    <button className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-6 py-3 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all shadow-[0px_4px_12px_rgba(168,178,193,0.3)]">
+                    <button
+                      onClick={handleSaveCompanySettings}
+                      className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-6 py-3 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all shadow-[0px_4px_12px_rgba(168,178,193,0.3)]"
+                    >
                       Сохранить изменения
                     </button>
                   </div>
@@ -154,7 +207,10 @@ export const Settings: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-bold text-[#E5E9ED]">Пользователи системы</h3>
-                  <button className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-4 py-2 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all">
+                  <button
+                    onClick={handleAddUser}
+                    className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-4 py-2 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all"
+                  >
                     + Добавить пользователя
                   </button>
                 </div>
@@ -181,8 +237,18 @@ export const Settings: React.FC = () => {
                             </span>
                           </td>
                           <td className="px-4 py-4 text-sm">
-                            <button className="text-[#A8B2C1] hover:text-[#E5E9ED] mr-3">Редактировать</button>
-                            <button className="text-red-400 hover:text-red-300">Удалить</button>
+                            <button
+                              onClick={() => handleEditUser(user.id)}
+                              className="text-[#A8B2C1] hover:text-[#E5E9ED] mr-3"
+                            >
+                              Редактировать
+                            </button>
+                            <button
+                              onClick={() => handleDeleteUser(user.id)}
+                              className="text-red-400 hover:text-red-300"
+                            >
+                              Удалить
+                            </button>
                           </td>
                         </tr>
                       ))}
@@ -197,7 +263,10 @@ export const Settings: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-bold text-[#E5E9ED]">Роли и права доступа</h3>
-                  <button className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-4 py-2 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all">
+                  <button
+                    onClick={handleAddRole}
+                    className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-4 py-2 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all"
+                  >
                     + Создать роль
                   </button>
                 </div>
@@ -227,7 +296,10 @@ export const Settings: React.FC = () => {
                           </div>
                         </div>
                         <div className="flex gap-2">
-                          <button className="text-[#A8B2C1] hover:text-[#E5E9ED] px-3 py-1">
+                          <button
+                            onClick={() => handleEditRole(role.id)}
+                            className="text-[#A8B2C1] hover:text-[#E5E9ED] px-3 py-1"
+                          >
                             Редактировать
                           </button>
                         </div>
@@ -243,7 +315,10 @@ export const Settings: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-bold text-[#E5E9ED]">Шаблоны документов и уведомлений</h3>
-                  <button className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-4 py-2 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all">
+                  <button
+                    onClick={handleAddTemplate}
+                    className="bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] px-4 py-2 rounded-lg font-semibold hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all"
+                  >
                     + Создать шаблон
                   </button>
                 </div>
@@ -265,10 +340,16 @@ export const Settings: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <button className="text-[#A8B2C1] hover:text-[#E5E9ED] px-3 py-1">
+                        <button
+                          onClick={() => handleEditTemplate(template.id)}
+                          className="text-[#A8B2C1] hover:text-[#E5E9ED] px-3 py-1"
+                        >
                           Редактировать
                         </button>
-                        <button className="text-[#8B95A5] hover:text-[#E5E9ED] px-3 py-1">
+                        <button
+                          onClick={() => handleViewTemplate(template.id)}
+                          className="text-[#8B95A5] hover:text-[#E5E9ED] px-3 py-1"
+                        >
                           Просмотр
                         </button>
                       </div>
@@ -279,6 +360,95 @@ export const Settings: React.FC = () => {
             )}
           </div>
         </div>
+
+        {/* Modals */}
+        <Modal isOpen={showUserModal} onClose={() => setShowUserModal(false)} title="Добавить пользователя">
+          <div className="space-y-4">
+            <Input label="Имя" placeholder="Введите имя пользователя" />
+            <Input label="Email" type="email" placeholder="user@example.com" />
+            <Input label="Роль" placeholder="Выберите роль" />
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowUserModal(false)}
+                className="px-4 py-2 bg-[#2A2A2A] text-[#E5E9ED] rounded-lg hover:bg-[#3A3A3A] transition-all"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={() => { setShowUserModal(false); success('Пользователь добавлен'); }}
+                className="px-4 py-2 bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] rounded-lg hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all"
+              >
+                Добавить
+              </button>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal isOpen={showRoleModal} onClose={() => setShowRoleModal(false)} title="Создать роль">
+          <div className="space-y-4">
+            <Input label="Название роли" placeholder="Введите название роли" />
+            <div>
+              <label className="block text-sm font-medium text-[#8B95A5] mb-2">Права доступа</label>
+              <div className="space-y-2">
+                {['Просмотр заявок', 'Создание заявок', 'Редактирование заявок', 'Удаление заявок', 'Работа с клиентами', 'Управление мастерами'].map((permission) => (
+                  <label key={permission} className="flex items-center gap-2 text-[#E5E9ED]">
+                    <input type="checkbox" className="rounded" />
+                    <span>{permission}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowRoleModal(false)}
+                className="px-4 py-2 bg-[#2A2A2A] text-[#E5E9ED] rounded-lg hover:bg-[#3A3A3A] transition-all"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={() => { setShowRoleModal(false); success('Роль создана'); }}
+                className="px-4 py-2 bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] rounded-lg hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all"
+              >
+                Создать
+              </button>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal isOpen={showTemplateModal} onClose={() => setShowTemplateModal(false)} title="Создать шаблон">
+          <div className="space-y-4">
+            <Input label="Название шаблона" placeholder="Введите название" />
+            <div>
+              <label className="block text-sm font-medium text-[#8B95A5] mb-2">Тип шаблона</label>
+              <select className="w-full px-4 py-2 bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg text-[#E5E9ED]">
+                <option>Документ</option>
+                <option>Email</option>
+                <option>SMS</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#8B95A5] mb-2">Содержимое шаблона</label>
+              <textarea
+                className="w-full px-4 py-2 bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg text-[#E5E9ED] min-h-[200px]"
+                placeholder="Введите текст шаблона..."
+              />
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowTemplateModal(false)}
+                className="px-4 py-2 bg-[#2A2A2A] text-[#E5E9ED] rounded-lg hover:bg-[#3A3A3A] transition-all"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={() => { setShowTemplateModal(false); success('Шаблон создан'); }}
+                className="px-4 py-2 bg-gradient-to-r from-[#8B95A5] to-[#A8B2C1] text-[#0A0A0A] rounded-lg hover:from-[#A8B2C1] hover:to-[#E5E9ED] transition-all"
+              >
+                Создать
+              </button>
+            </div>
+          </div>
+        </Modal>
       </div>
     </CRMLayout>
   );

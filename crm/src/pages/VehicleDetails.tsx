@@ -124,7 +124,7 @@ export const VehicleDetails: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <Link to="/crm/vehicles" className="text-[#A8B2C1] hover:text-[#E5E9ED] mb-2 inline-block">
+            <Link to="/vehicles" className="text-[#A8B2C1] hover:text-[#E5E9ED] mb-2 inline-block">
               ← Назад к списку
             </Link>
             <h1 className="text-3xl font-bold">
@@ -184,7 +184,7 @@ export const VehicleDetails: React.FC = () => {
               </div>
             </div>
             <Link
-              to={`/clients/${vehicle.owner.id}`}
+              to={`../clients/${vehicle.owner.id}`}
               className="text-[#A8B2C1] hover:text-[#E5E9ED] font-medium"
             >
               Профиль клиента →
@@ -319,7 +319,7 @@ export const VehicleDetails: React.FC = () => {
                           {record.amount.toLocaleString('ru-RU')} ₽
                         </p>
                         <Link
-                          to={`/requests/${record.id}`}
+                          to={`../requests/${record.id}`}
                           className="text-sm text-[#A8B2C1] hover:text-[#E5E9ED] mt-2 inline-block"
                         >
                           Подробнее →

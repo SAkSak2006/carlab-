@@ -1,4 +1,4 @@
-# Ilialox Auto Service CRM - 2-Day Prototype
+# Car Lab Auto Service CRM - 2-Day Prototype
 
 Полнофункциональный прототип CRM-системы для автосервиса с публичной частью (landing page) и административной панелью.
 
@@ -26,7 +26,7 @@ cp .env.example .env
 # Отредактируйте .env и укажите ваши настройки DATABASE_URL
 
 # Создать базу данных PostgreSQL
-createdb ilialox_crm
+createdb carlab_crm
 
 # Запустить миграции
 npx prisma migrate dev --name init
@@ -64,13 +64,13 @@ Frontend будет доступен на `http://localhost:5173`
 ## 🔑 Данные для входа
 
 **CRM Admin:**
-- Email: `admin@ilialox.com`
+- Email: `admin@carlab.com`
 - Пароль: `admin123`
 
 ## 📁 Структура проекта
 
 ```
-ilialox/
+carlab/
 ├── backend/                    # Node.js + Express API
 │   ├── src/
 │   │   ├── config/            # Prisma client
@@ -227,7 +227,7 @@ ilialox/
 
 2. **CRM flow:**
    - Откройте `http://localhost:5173/login`
-   - Войдите (admin@ilialox.com / admin123)
+   - Войдите (admin@carlab.com / admin123)
    - Просмотрите dashboard
    - Откройте список заявок
    - Обновите статус, назначьте мастера

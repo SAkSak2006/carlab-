@@ -37,9 +37,11 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Token expired or invalid
+      console.warn('[api] 401 Unauthorized - clearing auth and redirecting to login');
       localStorage.removeItem('auth_token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Use /crm/login because CRM app has basename="/crm"
+      window.location.href = '/crm/login';
     }
     return Promise.reject(error);
   }
@@ -51,7 +53,9 @@ api.interceptors.response.use(
 
 export const authApi = {
   login: async (email: string, password: string): Promise<AuthResponse> => {
+    console.log('[authApi] Sending login request...', { email });
     const response = await api.post<AuthResponse>('/auth/login', { email, password });
+    console.log('[authApi] Login response:', { status: response.status, hasData: !!response.data });
     return response.data;
   },
 };

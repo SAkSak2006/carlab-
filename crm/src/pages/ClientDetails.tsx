@@ -131,7 +131,7 @@ export const ClientDetails: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <Link to="/crm/clients" className="text-[#A8B2C1] hover:text-[#E5E9ED] mb-2 inline-block">
+            <Link to="/clients" className="text-[#A8B2C1] hover:text-[#E5E9ED] mb-2 inline-block">
               ← Назад к списку
             </Link>
             <h1 className="text-3xl font-bold">
@@ -281,7 +281,7 @@ export const ClientDetails: React.FC = () => {
                         <p className="text-sm text-[#8B95A5]">VIN: {vehicle.vin}</p>
                       </div>
                       <Link
-                        to={`/vehicles/${vehicle.id}`}
+                        to={`../vehicles/${vehicle.id}`}
                         className="text-[#A8B2C1] hover:text-[#E5E9ED] font-medium"
                       >
                         Подробнее →

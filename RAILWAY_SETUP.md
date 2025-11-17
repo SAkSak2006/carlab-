@@ -33,7 +33,7 @@
 DATABASE_URL=<автоматически из PostgreSQL сервиса>
 
 # JWT Configuration
-JWT_SECRET=ilialox-production-secret-key-change-this-to-random-string-min32chars
+JWT_SECRET=carlab-production-secret-key-change-this-to-random-string-min32chars
 JWT_EXPIRES_IN=24h
 
 # Environment
@@ -101,7 +101,7 @@ git push
 ## Структура проекта после исправлений:
 
 ```
-ilialox/
+carlab/
 ├── Caddyfile              # Конфигурация Caddy для роутинга
 ├── start.sh               # Скрипт запуска backend + Caddy
 ├── railway.toml           # Конфигурация Railway

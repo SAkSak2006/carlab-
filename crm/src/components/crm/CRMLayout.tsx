@@ -15,17 +15,17 @@ export const CRMLayout: React.FC<CRMLayoutProps> = ({ children }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('login');
+    navigate('/login');
   };
 
   const navItems = [
-    { path: 'dashboard', label: 'Панель управления' },
-    { path: 'clients', label: 'Клиенты' },
-    { path: 'vehicles', label: 'Автомобили' },
-    { path: 'requests', label: 'Заявки' },
-    { path: 'masters', label: 'Мастера' },
-    { path: 'parts', label: 'Склад запчастей' },
-    { path: 'settings', label: 'Настройки' },
+    { path: '/dashboard', label: 'Панель управления' },
+    { path: '/clients', label: 'Клиенты' },
+    { path: '/vehicles', label: 'Автомобили' },
+    { path: '/requests', label: 'Заявки' },
+    { path: '/masters', label: 'Мастера' },
+    { path: '/parts', label: 'Склад запчастей' },
+    { path: '/settings', label: 'Настройки' },
   ];
 
   return (
@@ -42,7 +42,7 @@ export const CRMLayout: React.FC<CRMLayoutProps> = ({ children }) => {
         <nav className="p-4">
           <ul className="space-y-2">
             {navItems.map((item) => {
-              const fullPath = `/crm/${item.path}`;
+              const fullPath = `/crm${item.path}`;
               const isActive = location.pathname === fullPath || location.pathname.startsWith(fullPath + '/');
               return (
                 <li key={item.path}>

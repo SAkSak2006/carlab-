@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
 import { authApi } from '../services/api';
 import type { User } from '../types';
 
@@ -43,9 +43,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string) => {
     try {
+      console.log('[AuthContext] Starting login...');
       const response = await authApi.login(email, password);
+      console.log('[AuthContext] Login response received:', { hasToken: !!response.token, hasUser: !!response.user });
+
+      if (!response.token || !response.user) {
+        throw new Error('Invalid response from server: missing token or user');
+      }
 
       setToken(response.token);
       setUser(response.user);
@@ -53,27 +59,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Persist to localStorage
       localStorage.setItem('auth_token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
-    } catch (error) {
-      console.error('Login failed:', error);
+
+      console.log('[AuthContext] Login successful, user saved to localStorage');
+    } catch (error: any) {
+      console.error('[AuthContext] Login failed:', error);
+      console.error('[AuthContext] Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       throw error;
     }
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setToken(null);
     setUser(null);
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user');
-  };
+  }, []);
 
-  const value: AuthContextType = {
+  const value: AuthContextType = useMemo(() => ({
     user,
     token,
     login,
     logout,
     isAuthenticated: !!token && !!user,
     isLoading,
-  };
+  }), [user, token, login, logout, isLoading]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

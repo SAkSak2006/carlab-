@@ -26,7 +26,7 @@ export const CRMLayout: React.FC<CRMLayoutProps> = ({ children }) => {
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-lg">
         <div className="p-6 border-b">
-          <h1 className="text-2xl font-bold text-blue-600">Ilialox CRM</h1>
+          <h1 className="text-2xl font-bold text-blue-600">Car Lab CRM</h1>
         </div>
 
         <nav className="p-4">

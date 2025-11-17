@@ -103,7 +103,7 @@ export const RequestsList: React.FC = () => {
               {requests.map((request) => (
                 <Link
                   key={request.id}
-                  to={`/requests/${request.id}`}
+                  to={`requests/${request.id}`}
                   className="block border border-[#2A2A2A] rounded-lg p-4 hover:border-[#A8B2C1] hover:shadow-[0px_4px_16px_rgba(168,178,193,0.2)] transition-all bg-[#0A0A0A]"
                 >
                   <div className="flex items-start justify-between">
